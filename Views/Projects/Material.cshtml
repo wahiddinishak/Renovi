@@ -1,0 +1,152 @@
+﻿@model renovi.Models.listMat
+
+
+<button class="btn btn-info btn-sm mb-3" onclick="exportMaterial('@ViewData["idProyek"]')">
+    <i class="fas fa-file-upload mr-1"></i>Export
+</button>
+
+<button class="btn btn-info btn-sm mb-3" onclick="importMaterial('@ViewData["idProyek"]')">
+    <i class="fas fa-file-download mr-1"></i>Import
+</button>
+
+
+<div id="accordionMaterial">
+    <div class="card mb-2 shadow">
+        <div class="card">
+            <div class="card-header" id="head_material">
+                <div class="col-sm-12" data-toggle="collapse" data-target="#view_material" aria-expanded="true" aria-controls="view_material">
+                    <h6>
+                        Harga Satuan Material (Bahan dan Alat)
+                    </h6>
+                </div>
+            </div>
+            <div id="view_material" class="collapse show" aria-labelledby="head_material" data-parent="#accordionMaterial">
+                <div class="card-body">
+                    <table class="table table-hover table-bordered table-sm" style="border-collapse:collapse;" id="matTbl">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th width="10">
+                                    <div class="btn-group btn-group-sm d-flex justify-content-center">
+                                        <button type="button" class="btn btn-sm btn-info" onclick="newRow('matTbl')">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </button>
+                                    </div>
+                                </th>
+                                <th class="d-none">Id</th>
+                                <th style="width: 60%;">Item</th>
+                                <th style="width: 20%;">Satuan</th>
+                                <th class="text-right" style="width: 20%;">Harga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var m in Model.data)
+                            {
+                                if (m.jenis == "M")
+                                {
+                                    string idD = "btnDel" + m.id;
+
+                                    <tr>
+                                        <td>
+                                            <div class="btn-group btn-group-sm d-flex justify-content-center">
+                                                <button type="button" class="btn btn-sm btn-danger" id="@idD" onclick="delMat(@m.id)">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td class="d-none">
+                                            <input type="text" class="form-control form-control-sm" value="@m.id" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" value="@m.item" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" value="@m.satuan" />
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control form-control-sm text-right" value="@m.harga" min="0" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-info btn-sm mb-3" onclick="submitMaterial('@ViewData["idProyek"]')">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-2 shadow">
+        <div class="card">
+            <div class="card-header" id="head_jasa">
+                <div class="col-sm-12" data-toggle="collapse" data-target="#view_jasa" aria-expanded="true" aria-controls="view_jasa">
+                    <h6>
+                        Harga Satuan Jasa
+                    </h6>
+                </div>
+            </div>
+            <div id="view_jasa" class="collapse show" aria-labelledby="head_jasa" data-parent="#accordionMaterial">
+                <div class="card-body">
+                    <table class="table table-hover table-bordered table-sm" style="border-collapse:collapse;" id="jasTbl">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th width="15">
+                                    <div class="btn-group btn-group-sm d-flex justify-content-center">
+                                        <button type="button" class="btn btn-sm btn-info" onclick="newRow('jasTbl')">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </button>
+                                    </div>
+                                </th>
+                                <th class="d-none">Id</th>
+                                <th style="width: 60%;">Item</th>
+                                <th style="width: 20%;">Satuan</th>
+                                <th class="text-right" style="width: 20%;">Harga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var m in Model.data)
+                            {
+                                if (m.jenis == "J")
+                                {
+
+                                    string idD = "btnDel" + m.id;
+
+                                    <tr>
+                                        <td>
+                                            <div class="btn-group btn-group-sm d-flex justify-content-center">
+                                                <button type="button" class="btn btn-sm btn-danger" id="@idD" onclick="delMat(@m.id)">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td class="d-none">
+                                            <input type="text" class="form-control form-control-sm" value="@m.id" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" value="@m.item" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" value="@m.satuan" />
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control form-control-sm text-right" value="@m.harga" min="0" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-info btn-sm mb-3" onclick="submitJasa('@ViewData["idProyek"]')">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+﻿@model renovi.Models.listPayroll
+
+
+<div id="printPayroll">
+    <div class="card">
+        <div class="card-body">
+            <div class="col-sm-12 mb-4 bg-light">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <h4 class="h4">Rekapitulasi Payroll</h4>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <img class="img-fluid" src="~/img/logo.png" width="200" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-light p-2">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">
+                        <b>Nama Proyek</b>
+                    </label>
+                    <label class="col-sm-10 col-form-label col-form-label-sm">
+                        @ViewData["Judul"]
+                    </label>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm">
+                        <b>Periode</b>
+                    </label>
+                    <label class="col-sm-10 col-form-label col-form-label-sm">
+                        @ViewData["Periode"]
+                    </label>
+                </div>
+            </div>
+
+            <table class="table table-hover table-bordered table-sm w-100 mt-4 mb-4" style="border-collapse:collapse;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="width: 30%;">Nama</th>
+                        <th style="width: 10%;">Telepon</th>
+                        <th style="width: 15%;">Role</th>
+                        <th style="width: 10%;">Account</th>
+                        <th class="text-right" style="width: 10%;">Rate</th>
+                        <th class="text-right" style="width: 10%;">Mandays</th>
+                        <th class="text-right" style="width: 15%;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model.data)
+                    {
+                        <tr>
+                            <td>@data.nama</td>
+                            <td>@data.telepon</td>
+                            <td>@data.role</td>
+                            <td>@data.rekening</td>
+                            <td class="text-right">@data.rate.ToString("n2")</td>
+                            <td class="text-right">@data.mandays.ToString("n2")</td>
+                            <td class="text-right">@data.amount.ToString("n2")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="thead-dark">
+                    <tr>
+                        <th colspan="6">Total</th>
+                        <th class="text-right">@Model.data.Select(a => a.amount).Sum().ToString("n2")</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

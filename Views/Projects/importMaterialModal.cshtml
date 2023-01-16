@@ -1,0 +1,12 @@
+﻿@model renovi.Models.upload
+
+<p>
+    Silahkan gukanakan template import berdasarkan file hasil export,
+    Id Ref menandakan data eksis, kosongkan Id Ref jika data baru dan mohon agar
+    tidak menggunakan tanda kutip pada setiap awal text dan di bagian text lainnya.
+</p>
+
+<form id="frmupload">
+    <input type="text" asp-for="idProyek" class="d-none" />
+    <input type="file" class="form-control-file" accept=".xlsx" asp-for="data" />
+</form>

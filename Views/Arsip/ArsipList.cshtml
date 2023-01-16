@@ -1,0 +1,124 @@
+﻿@model renovi.Models.listArsip
+
+@{
+    ViewData["Title"] = "Arsip Laporan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="modal fade" id="ReportModal" tabindex="-1" role="dialog"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Detail Laporan</h6>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="ReportModalBody"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Keluar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">@ViewData["Title"]</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row justify-content-md-center mb-4">
+            
+            <div class="col-sm-10 mt-2">
+                <a class="btn btn-info btn-sm" asp-controller="Projects" asp-action="Monitoring" asp-route-id="@Model.aiProyek">
+                    <i class="fas fa-arrow-left mr-1"></i> Kembali
+                </a>
+            </div>
+
+            <div class="col-sm-10 mt-2">
+                <div class="card">
+                    <div class="card-header">
+                        Uraian Pekerjaan
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm"><b>Proyek</b></label>
+                            <label class="col-sm-10 col-form-label col-form-label-sm">@Model.judulProyek</label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm"><b>Pekerjaan</b></label>
+                            <label class="col-sm-10 col-form-label col-form-label-sm">@Model.pekerjaan</label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm"><b>Detail Pekerjaan</b></label>
+                            <label class="col-sm-10 col-form-label col-form-label-sm">@Model.detailPekerjaan</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-10 mt-2">
+                <div class="card">
+                    <div class="card-header">
+                        Laporan
+                    </div>
+                    <div class="card-body">
+                        <h6 class="h6 text-muted">Klik baris laporan untuk lebih detail.</h6>
+                        <table class="table table-hover table-bordered table-sm w-100 mt-2" id="rTbl">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="d-none">idreport</th>
+                                    <th>Tanggal Laporan</th>
+                                    <th class="text-right">Nilai</th>
+                                    <th class="text-right">Bobot</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var d in Model.data)
+                                {
+                                    <tr class="bg-info text-white">
+                                        <td class="d-none">@d.idReport</td>
+                                        <td>@d.reportDate.ToString("dd-MM-yyyy")</td>
+                                        <td class="text-right">@d.nilai.ToString("n2")</td>
+                                        <td class="text-right">@d.bobot.ToString("n2")%</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr class="bg-dark text-white">
+                                    <td class="d-none"></td>
+                                    <td><b>Total</b></td>
+                                    <td class="text-right"><b>@Model.totalNiali.ToString("n2")</b></td>
+                                    <td class="text-right"><b>@Model.totalBobot.ToString("n2")%</b></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+         $(document).ready(function () {
+
+             $('#rTbl tbody tr').click(function (i, obj) {
+                 var idReport = $(this).find('td').eq(0).text();
+                 $.get('@Url.Action("ReportDetail", "Arsip")', { idReport: idReport}, function (result) {
+                     $('#ReportModalBody').html('');
+                     $('#ReportModalBody').html(result);
+                });
+                 $('#ReportModal').modal('show');
+             });
+
+         })
+    </script>
+}

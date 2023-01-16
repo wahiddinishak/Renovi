@@ -1,0 +1,67 @@
+﻿@model renovi.Models.AbsenView
+
+    <div class="container-fluid mb-4">
+
+        <form id="frmAbsen">
+            <input type="number" asp-for="id" id="idx" class="d-none">
+            <input type="date" asp-for="periode" id="rdate" class="d-none">
+            <input type="text" asp-for="idProyek" class="d-none">
+            <input type="text" asp-for="strDetails" id="strDetail" class="d-none"/>
+
+            <div class="row justify-content-sm-center">
+                <div class="col-sm-6 mt-2">
+                    <div class="card">
+                        <div class="card-header">
+                            Data Absensi
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label col-form-label-sm">Periode</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm" id="xdate">
+                                </div>
+                            </div>
+                            <div class="form-group row pl-3 pr-3">
+                                <table class="table table-hover table-bordered table-sm col-sm-12" style="border-collapse:collapse;" id="absTbl">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="d-none">idPersonil</th>
+                                            <th style="width: 50%;">Nama</th>
+                                            <th style="width: 40%;">Role</th>
+                                            <th class="text-right" style="width: 10%;">Mandays</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var data in Model.detail)
+                                        {
+                                            <tr>
+                                                <td class="d-none">
+                                                    <input type="text" value="@data.idPersonil" />
+                                                </td>
+                                                <td>
+                                                    @data.nama
+                                                </td>
+                                                <td>
+                                                    @data.role
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control form-control-sm text-right" value="@data.mandays" min="0" max="1" step="0.1"/>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <h6 class="h6 text-muted">
+                                    * 1 Mandays adalah 1 hari kerja.
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-info btn-sm" id="btnSaveAbsen">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>

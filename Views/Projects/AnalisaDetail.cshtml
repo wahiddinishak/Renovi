@@ -1,0 +1,106 @@
+﻿@model renovi.Models.listAnalisa
+
+@{
+    string pidProfit = "idProfit" + ViewData["idActD"];
+    string idProfit = "#idProfit" + ViewData["idActD"];
+}
+<table class="table table-hover table-bordered table-sm w-100 mt-2" style="border-collapse:collapse;">
+    <thead class="thead-dark">
+        <tr>
+            <th style="width: 5%;"></th>
+            <th style="width: 45%;">Item</th>
+            <th style="width: 10%;">Satuan</th>
+            <th class="text-right" style="width: 10%;">Koefisien</th>
+            <th class="text-right" style="width: 15%;">Harga Satuan</th>
+            <th class="text-right" style="width: 15%;">Jumlah</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr class="bg-info text-white">
+            <td colspan="6">
+                <button type="button" class="btn btn-dark btn-sm" onclick="modalAnalisa('M',0,@ViewData["idActD"])">
+                    <i class="fas fa-plus-circle mr-1"></i>
+                    Tambah Material (Bahan &#38; Alat)
+                </button>
+            </td>
+        </tr>
+
+        @foreach (var m in Model.data)
+        {
+            if (m.jenisItem == "M")
+            {
+                <tr>
+                    <td class="text-left">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-warning btn-sm" onclick="modalAnalisa('M',@m.id,@ViewData["idActD"])"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="delAnalisa(@m.id,@ViewData["idActD"])"><i class="far fa-trash-alt"></i></button>
+                        </div>
+                    </td>
+                    <td>@m.item</td>
+                    <td>@m.satuan</td>
+                    <td class="text-right">@m.koefisien.ToString("n2")</td>
+                    <td class="text-right">@m.harga.ToString("n2")</td>
+                    <td class="text-right">@m.jumlah.ToString("n2")</td>
+                </tr>
+            }
+        }
+
+        <tr class="bg-info text-white">
+            <td colspan="6">
+                <button type="button" class="btn btn-dark btn-sm" onclick="modalAnalisa('J',0,@ViewData["idActD"])">
+                    <i class="fas fa-plus-circle mr-1"></i>
+                    Tambah Jasa
+                </button>
+            </td>
+        </tr>
+
+        @foreach (var j in Model.data)
+        {
+            if (j.jenisItem == "J")
+            {
+                <tr>
+                    <td class="text-left">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-warning btn-sm" onclick="modalAnalisa('J',@j.id,@ViewData["idActD"])"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="delAnalisa(@j.id,@ViewData["idActD"])"><i class="far fa-trash-alt"></i></button>
+                        </div>
+                    </td>
+                    <td>@j.item</td>
+                    <td>@j.satuan</td>
+                    <td class="text-right">@j.koefisien.ToString("n2")</td>
+                    <td class="text-right">@j.harga.ToString("n2")</td>
+                    <td class="text-right">@j.jumlah.ToString("n2")</td>
+                </tr>
+            }
+        }
+
+        <tr class="bg-dark">
+            <td colspan="5">
+                <b class="text-white">Jumlah Biaya Material &#38; Jasa</b>
+            </td>
+            <td class="text-right">
+                <b class="text-white">@Model.data.Select(a => a.jumlah).Sum().ToString("n2")</b>
+            </td>
+        </tr>
+
+        <tr class="bg-dark">
+            <td colspan="5" class="pt-2">
+                <b class="text-white">Overhead &#38; Profit (Persentase dari Biaya Material &#38; Jasa)</b>
+            </td>
+            <td class="text-right">
+                <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">%</div>
+                    </div>
+                    <input type="number" class="form-control form-control-sm text-right" min="0" max="100" value="@ViewData["profit"]" id="@pidProfit">
+                </div>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<div class="col-sm-12 text-right">
+    <button type="button" class="btn btn-info btn-sm" onclick="calcAnalisa(@ViewData["idActD"], $('@idProfit').val())">Kalkulasi &#38; Simpan</button>
+</div>

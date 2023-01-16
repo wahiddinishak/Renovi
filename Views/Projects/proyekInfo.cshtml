@@ -1,0 +1,127 @@
+﻿@model renovi.Models.listProyek
+
+
+@foreach (var data in Model.data)
+{
+    <div class="card mb-2 shadow">
+        <div class="card">
+            <div class="card-header" id="head_@data.Id">
+                <div class="row">
+                    <div class="col-sm-10" data-toggle="collapse" data-target="#view_@data.Id" aria-expanded="true" aria-controls="view_@data.Id">
+                        <h6>
+                            @if (data.isActive)
+                            {
+                                <i class="fas fa-circle mt-1 mr-1 text-info"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-circle mt-1 mr-1 text-muted"></i>
+                            }
+                            @data.judul (@data.idProyek)
+                        </h6>
+                    </div>
+                    <div class="col-sm-2 text-right">
+
+                        <div class="dropdown">
+
+                            <button class="btn btn-light btn-sm" type="button" id="btnOpt_@data.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-h text-muted"></i>
+                            </button>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnOpt_@data.Id">
+                                @if (ViewData["RoleId"].ToString() == "1" || ViewData["RoleId"].ToString() == "3")
+                                {
+                                    <a class="dropdown-item text-muted" asp-controller="Projects" asp-action="Details" asp-route-Id="@data.Id">Pengaturan</a>
+                                    <a class="dropdown-item text-muted" asp-controller="Projects" asp-action="Rekap" asp-route-Id="@data.Id">Rekapitulasi</a>
+                                    <a class="dropdown-item text-muted" asp-controller="Projects" asp-action="Monitoring" asp-route-Id="@data.Id">Pemantauan</a>
+                                    <a class="dropdown-item text-muted" asp-controller="Projects" asp-action="FormAbsen" asp-route-Id="@data.Id">Form Absensi</a>
+                                    <a class="dropdown-item text-muted" onclick="duplicateProject(@data.Id)">Duplikasi</a>
+                                    <div class="dropdown-divider"></div>
+                                    @if (data.isActive)
+                                    {
+                                        <a class="dropdown-item text-muted" onclick="setActive(@data.Id, false)">Non Aktif</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="dropdown-item text-info" onclick="setActive(@data.Id, true)">Aktif</a>
+                                    }
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger" onclick="deleteProject(@data.Id)">Hapus</a>
+                                }
+                                else
+                                {
+                                    <a class="dropdown-item text-muted" asp-controller="Projects" asp-action="Monitoring" asp-route-Id="@data.Id">Pemantauan</a>
+                                    <a class="dropdown-item text-muted" asp-controller="Projects" asp-action="FormAbsen" asp-route-Id="@data.Id">Form Absensi</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="view_@data.Id" class="collapse" aria-labelledby="head_@data.Id" data-parent="#accordion">
+                <div class="card-body bg-gray-200">
+
+                    <div class="container">
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">
+                                <b>Alamat</b>
+                            </label>
+                            <label class="col-sm-4 col-form-label col-form-label-sm">
+                                @data.Alamat
+                            </label>
+                            <label class="col-sm-2 col-form-label col-form-label-sm">
+                                <b>Tanggal Mulai</b>
+                            </label>
+                            <label class="col-sm-4 col-form-label col-form-label-sm">
+                                @data.tglMulai.ToString("dd MMMM yyyy")
+                            </label>
+                        </div>
+
+
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">
+                                <b>Mandor</b>
+                            </label>
+                            <label class="col-sm-4 col-form-label col-form-label-sm">
+                                @data.mandor
+                            </label>
+
+                            <label class="col-sm-2 col-form-label col-form-label-sm">
+                                <b>Tanggal Selesai</b>
+                            </label>
+                            <label class="col-sm-4 col-form-label col-form-label-sm">
+                                @data.tglSelesai.ToString("dd MMMM yyyy")
+                            </label>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">
+                                <b>Desain</b>
+                            </label>
+                            <label class="col-sm-4 col-form-label col-form-label-sm">
+                                <a class="text-muted" href="/file/@data.desain" target="_blank">@data.desain</a>
+                            </label>
+
+                            <label class="col-sm-2 col-form-label col-form-label-sm">
+                                <b>Kontrak</b>
+                            </label>
+                            <label class="col-sm-4 col-form-label col-form-label-sm">
+                                <a class="text-muted" href="/file/@data.kontrak" target="_blank">@data.kontrak</a>
+                            </label>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">
+                                <b>Klien</b>
+                            </label>
+                            <label class="col-sm-4 col-form-label col-form-label-sm">
+                                @data.namaKlien
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

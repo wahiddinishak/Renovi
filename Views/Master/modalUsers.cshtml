@@ -1,0 +1,37 @@
+﻿@model renovi.Models.user
+
+<form asp-controller="" asp-action="" id="frm">
+    <input type="text" asp-for="id" id="id" class="d-none">
+    <div class="form-group row">
+        <label asp-for="username" class="col-sm-4 col-form-label col-form-label-sm"></label>
+        <div class="col-sm-8">
+            <input type="text" asp-for="username" class="form-control form-control-sm" id="usrnm" onkeypress="return event.charCode != 32">
+            <span asp-validation-for="username" class="badge badge-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="fullname" class="col-sm-4 col-form-label col-form-label-sm"></label>
+        <div class="col-sm-8">
+            <input type="text" asp-for="fullname" class="form-control form-control-sm">
+            <span asp-validation-for="fullname" class="badge badge-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="password" class="col-sm-4 col-form-label col-form-label-sm"></label>
+        <div class="col-sm-8">
+            <input type="password" asp-for="password" class="form-control form-control-sm">
+            <span asp-validation-for="password" class="badge badge-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="role" class="col-sm-4 col-form-label col-form-label-sm"></label>
+        <div class="col-sm-8">
+            <select class="form-control form-control-sm" asp-for="role">
+                <option value="" disabled selected>Select Role</option>
+                <option value="1">Owner</option>
+                <option value="2">Mandor</option>
+                <option value="3">Admin</option>
+            </select>
+        </div>
+    </div>
+</form>

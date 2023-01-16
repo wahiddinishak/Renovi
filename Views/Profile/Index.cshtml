@@ -1,0 +1,105 @@
+﻿@model renovi.Models.userView
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewData["Title"]</h5>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="container-fluid mb-4">
+            <div class="row justify-content-md-center mb-2">
+                <div class="col-sm-8 mt-2">
+                    <div class="card">
+                        <div class="card-body justify-content-sm-center">
+                            
+                            <form id="frm">
+                                <div class="form-group row">
+                                    <div class="col-sm-12 text-center mb-2">
+                                        <img src="~/img/undraw_profile.svg" width="200" height="200" />
+                                        <input type="text" class="form-control form-control-sm d-none" asp-for="id">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm" asp-for="username"></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control form-control-sm" asp-for="username" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm" asp-for="fullname"></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control form-control-sm" asp-for="fullname">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm" asp-for="password"></label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control form-control-sm" asp-for="password">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm" asp-for="email"></label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control form-control-sm" asp-for="email">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label col-form-label-sm" asp-for="role"></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control form-control-sm" asp-for="role" disabled>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            <div class="form-group row">
+                                <div class="col-sm-12 mt-2">
+                                    <button class="btn btn-info btn-sm" type="submit" onclick="submitProfile()">Simpan</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+         $(document).ready(function () {
+
+         });
+
+        function submitProfile() {
+             $.post('@Url.Action("submitProfile", "Profile")', $('#frm').serializeArray(),function (result) {
+                 if (result === "Ok") {
+                     Swal.fire({
+                         title: 'Berhasil !',
+                         text: 'Data was recorded successfully',
+                         type: 'success',
+                     }).then((result) => {
+                         if (result.value) {
+                             location.reload();
+                         }
+                     });
+                 }
+                 else {
+                     Swal.fire({
+                         title: 'Error !',
+                         text: '' + result +'',
+                         type: 'error',
+                     });
+                 }
+             });
+        }
+
+    </script>
+}

@@ -1,0 +1,137 @@
+﻿@model renovi.Models.listRekap
+
+<div id="progressBiaya">
+
+    <div class="col-sm-12 mb-4 bg-light">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <h4 class="h4">Rekapitulasi Progress Biaya</h4>
+            </div>
+            <div class="col-sm-6 text-right">
+                <img class="img-fluid" src="~/img/logo.png" width="200" />
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light p-2">
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Nama Proyek</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @Model.data.Select(a => a.judul).FirstOrDefault()
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Lokasi</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @Model.data.Select(a => a.alamat).FirstOrDefault()
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Pemilik</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @Model.data.Select(a => a.pemilik).FirstOrDefault()
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Periode</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @Model.data.Select(a => a.period).FirstOrDefault()
+            </label>
+        </div>
+    </div>
+
+
+    <table class="table table-hover table-bordered table-sm w-100 mt-4 mb-4" style="border-collapse:collapse;" id="rtbl">
+        <thead class="thead-dark">
+            <tr>
+                <th style="width: 5%; vertical-align: middle;">No</th>
+                <th style="width: 20%; vertical-align: middle;">Uraian Pekerjaan</th>
+                <th class="text-right" style="width: 15%; vertical-align: middle;">Nilai</th>
+                <th class="text-right" style="width: 15%; vertical-align: middle;">Aktual Periode Ini</th>
+                <th class="text-right" style="width: 15%; vertical-align: middle;">Aktual Periode Keseluruhan</th>
+                <th class="text-right" style="width: 10%; vertical-align: middle;">Bobot(%)</th>
+                <th class="text-right" style="width: 10%; vertical-align: middle;">Progress Periode Ini(%)</th>
+                <th class="text-right" style="width: 10%; vertical-align: middle;">Progress Periode Keseluruhan(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var data in Model.data)
+            {
+                foreach (var detail in data.details)
+                {
+                    <tr>
+                        <td class="text-center">
+                            @detail.no
+                        </td>
+                        <td>
+                            @detail.pekerjaan
+                        </td>
+                        <td class="text-right">
+                            @detail.nilai.ToString("n2")
+                        </td>
+                        <td class="text-right">
+                            @detail.progressNilaiPerPeriod.ToString("n2")
+                        </td>
+                        <td class="text-right">
+                            @detail.progressNilaiOverall.ToString("n2")
+                        </td>
+                        <td class="text-right">
+                            @detail.bobot.ToString("n2")
+                        </td>
+                        <td class="text-right">
+                            @detail.progressBobotPerPeriod.ToString("n2")
+                        </td>
+                        <td class="text-right">
+                            @detail.progressBobotOverall.ToString("n2")
+                        </td>
+                    </tr>
+                }
+            }
+
+            <tr class="bg-gray-300">
+                <td colspan="2" style="text-align:center;">
+                    <b>Total</b>
+                </td>
+                <td style="text-align:right;">
+                    <b>
+                        @Model.data.Select(a => a.totalNilai).FirstOrDefault().ToString("n2")
+                    </b>
+                </td>
+                <td style="text-align:right;">
+                    <b>
+                        @Model.data.Select(a => a.totalProgressNilaiPerPeriod).FirstOrDefault().ToString("n2")
+                    </b>
+                </td>
+                <td style="text-align:right;">
+                    <b>
+                        @Model.data.Select(a => a.totalProgressNilaiOverall).FirstOrDefault().ToString("n2")
+                    </b>
+                </td>
+                <td style="text-align:right;">
+                    <b>
+                        @Model.data.Select(a => a.totalBobot).FirstOrDefault().ToString("n2")%
+                    </b>
+                </td>
+                <td style="text-align:right;">
+                    <b>
+                        @Model.data.Select(a => a.totalProgressBobotPerPeriod).FirstOrDefault().ToString("n2")
+                    </b>
+                </td>
+                <td style="text-align:right;">
+                    <b>
+                        @Model.data.Select(a => a.totalProgressBobotOverall).FirstOrDefault().ToString("n2")
+                    </b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,96 @@
+2021-06-02 16:49:52,084 [1] INFO  ReglaWinServiceRWA.Program [(null)] - Agent Starting
+2021-06-02 16:49:52,151 [1] INFO  ReglaWinServiceRWA.Program [(null)] - Version : 1.0.0.0
+2021-06-02 16:49:52,151 [1] INFO  ReglaWinServiceRWA.Program [(null)] - ConstringKey : server=.;database=Regla_RWA;uid=sa;pwd=wahiddin421;Max Pool Size=500
+2021-06-02 16:49:57,056 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:49:57,137 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetDetailParam Called
+2021-06-02 16:49:57,161 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetDetailParam Ended
+2021-06-02 16:49:57,162 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:49:57,167 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobAssemblyName Called
+2021-06-02 16:49:57,256 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobAssemblyName Ended
+2021-06-02 16:49:57,433 [6] DEBUG ReglaApp [(null)] - Log App Start
+2021-06-02 16:49:57,434 [6] ERROR ReglaApp [(null)] - The given key was not present in the dictionary.
+2021-06-02 16:50:02,052 [7] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:02,122 [7] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:07,062 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:07,064 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:12,070 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:12,072 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:17,084 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:17,087 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:22,096 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:22,098 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:27,106 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:27,109 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:32,118 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:32,125 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:37,131 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:37,143 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:42,143 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:42,146 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:47,145 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:47,148 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:52,158 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:52,161 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:50:57,160 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:50:57,163 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:02,164 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:02,165 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:07,190 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:07,239 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:12,196 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:12,197 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:17,201 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:17,243 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:22,204 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:22,206 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:27,206 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:27,209 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:32,214 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:32,216 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:37,223 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:37,237 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:42,232 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:42,242 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:47,239 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:47,240 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:52,246 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:52,248 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:51:57,246 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:51:57,248 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:52:02,261 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:52:02,262 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:52:07,266 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:52:07,268 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:52:12,272 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:52:12,274 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:52:17,285 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:52:17,949 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetDetailParam Called
+2021-06-02 16:52:17,952 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetDetailParam Ended
+2021-06-02 16:52:17,953 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 16:52:17,953 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobAssemblyName Called
+2021-06-02 16:52:17,956 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobAssemblyName Ended
+2021-06-02 16:52:17,977 [6] ERROR ReglaApp [(null)] - The given key was not present in the dictionary.
+2021-06-02 16:52:22,287 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 16:52:22,288 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 18:24:56,852 [1] INFO  ReglaWinServiceRWA.Program [(null)] - Agent Starting
+2021-06-02 18:24:56,926 [1] INFO  ReglaWinServiceRWA.Program [(null)] - Version : 1.0.0.0
+2021-06-02 18:24:56,926 [1] INFO  ReglaWinServiceRWA.Program [(null)] - ConstringKey : server=.;database=Regla_RWA;uid=sa;pwd=wahiddin421;Max Pool Size=500
+2021-06-02 18:33:51,516 [1] INFO  ReglaWinServiceRWA.Program [(null)] - Agent Starting
+2021-06-02 18:33:51,545 [1] INFO  ReglaWinServiceRWA.Program [(null)] - Version : 1.0.0.0
+2021-06-02 18:33:51,545 [1] INFO  ReglaWinServiceRWA.Program [(null)] - ConstringKey : server=.;database=Regla_RWA;uid=sa;pwd=wahiddin421;Max Pool Size=500
+2021-06-02 18:33:56,514 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 18:33:56,575 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetDetailParam Called
+2021-06-02 18:33:56,583 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetDetailParam Ended
+2021-06-02 18:33:56,584 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 18:33:56,589 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobAssemblyName Called
+2021-06-02 18:33:56,613 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobAssemblyName Ended
+2021-06-02 18:33:56,690 [5] DEBUG ReglaApp [(null)] - Log App Start
+2021-06-02 18:33:56,691 [5] ERROR ReglaApp [(null)] - The given key was not present in the dictionary.
+2021-06-02 18:34:01,512 [7] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 18:34:01,523 [7] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 18:34:06,520 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 18:34:06,523 [8] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 18:34:11,527 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 18:34:11,530 [5] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended
+2021-06-02 18:34:16,533 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Called
+2021-06-02 18:34:16,536 [6] INFO  ReglaWinServiceRWA.Program [(null)] - ReglaWinServiceRWA - GetJobs Ended

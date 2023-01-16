@@ -1,0 +1,57 @@
+﻿@model IEnumerable<renovi.Models.ViewAccess>
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+        <div class="sidebar-brand-icon">
+            <img src="~/img/favicon.png" class="img-fluid" width="40" />
+        </div>
+        <div class="sidebar-brand-text mx-3">
+            <img src="~/img/logo_white.png" class="img-fluid" width="100" />
+        </div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+
+    @foreach (var menu in Model)
+    {
+        @if (!menu.Children.Any())
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="@menu.controller" asp-action="@menu.action">
+                    <i class="@menu.property"></i>
+                    <span>@menu.menu</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="javascript:void(0)" data-toggle="collapse" data-target="#@menu.menu" aria-expanded="true">
+                    <i class="@menu.property"></i>
+                    <span>@menu.menu</span>
+                </a>
+                <div id="@menu.menu" class="collapse">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @foreach (var child in menu.Children)
+                        {
+                            <a class="collapse-item" asp-controller="@child.controller" asp-action="@child.action">@child.menu</a>
+                        }
+                    </div>
+                </div>
+            </li>
+        }
+    }
+
+    <hr class="sidebar-divider">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
+<!-- End of Sidebar -->

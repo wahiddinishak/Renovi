@@ -1,0 +1,166 @@
+﻿@model renovi.Models.listActionForJadwal
+
+@{
+    ViewData["Title"] = "Pemantauan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    // lebar = bulan * 20 + 60
+    int bulan = (int)Convert.ToInt64(ViewData["bulan"]);
+    int lebar = bulan * 20 + 60;
+    int collspans = 4 * bulan;
+}
+
+<div class="modal fade" id="MonitorModal" tabindex="-1" role="dialog"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Progress Pekerjaan</h6>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="MonitorModalBody"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Keluar</button>
+                <button class="btn btn-info btn-sm" type="button" id="MonitorDetail">Detail Laporan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<label class="d-none">@ViewData["idProyek"]</label>
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-muted">@ViewData["Title"] : @ViewData["judulProyek"]</h5>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <b>Periode Pekerjaan:</b> @ViewData["target"] (@bulan Bulan)
+    </div>
+    <div class="card-body">
+
+        <div class="jadwalView">
+            <div class="jadwalWrapper">
+                <table id="jadTbl" width="@lebar%" style="border: 0px solid white;">
+                    <thead>
+                        <tr>
+                            <th class="d-none">Id</th>
+                            <th class="d-none">Header</th>
+                            <th class="d-none">Blocked</th>
+                            <th rowspan="2" style="vertical-align: middle; text-align: center;" class="kolomNomor" width="10">No</th>
+                            <th rowspan="2" style="vertical-align: middle;" class="kolomPekerjaan" width="20">Uraian Pekerjaan</th>
+                            @for (int i = 1; i <= bulan; i++)
+                            {
+                                <th colspan="4" class="text-center kolomBulan">Bulan ke @i</th>
+                            }
+                        </tr>
+                        <tr>
+                            <th class="d-none"></th>
+                            <th class="d-none"></th>
+                            <th class="d-none"></th>
+                            @for (int i = 1; i <= bulan; i++)
+                            {
+                                <th class="text-center kolomPekan">I</th>
+                                <th class="text-center kolomPekan">II</th>
+                                <th class="text-center kolomPekan">II</th>
+                                <th class="text-center kolomPekan">IV</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in Model.data)
+                        {
+                            <tr>
+                                <td class="d-none">
+                                    @data.id
+                                </td>
+                                <td class="d-none">
+                                    0
+                                </td>
+                                <td class="d-none"></td>
+                                <td class="text-center bg-info text-white kolomNomorBody" width="10">
+                                    <b>@data.Seq</b>
+                                </td>
+                                <td class="bg-info text-white kolomPekerjaanBody" width="20">
+                                    <b>@data.kegiatan</b>
+                                </td>
+                                <td id="parent" colspan="@collspans" class="bg-info"></td>
+                            </tr>
+
+                            foreach (var detail in data.details)
+                            {
+                                <tr>
+                                    <td class="d-none">
+                                        @detail.originalId
+                                    </td>
+                                    <td class="d-none">
+                                        @detail.header
+                                    </td>
+                                    <td class="d-none">@detail.blocked</td>
+                                    <td class="text-right bg-gray-200 text-dark kolomNomorBody" width="10">
+                                        @detail.Id
+                                    </td>
+                                    <td class="bg-gray-200 text-dark kolomPekerjaanBody" width="20">
+                                        @detail.kegiatan
+                                    </td>
+
+                                    @for (int i = 1; i <= collspans; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(detail.blocked))
+                                        {
+                                            string[] arr = detail.blocked.Split(',');
+
+                                            if (arr.Contains((i + 4).ToString()))
+                                            {
+                                                <td id="child" class="bg-warning" onclick="modal(@detail.originalId)"></td>
+                                            }
+                                            else
+                                            {
+                                                <td id="child"></td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td id="child"></td>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <h6 class="h6 text-muted">
+            * Lihat detail progress pekerjaan, klik pada bagian timeline yang telah di-arsir.
+        </h6>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        function modal(idActD) {
+            $.get('@Url.Action("ProgressActD", "Projects")', { idActD: idActD }, function (result) {
+                $('#MonitorModalBody').html(result);
+                $('#MonitorDetail').click(function (e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    window.location.assign("/Arsip/ArsipList/"+idActD);
+                });
+            });
+            $('#MonitorModal').modal('show');
+        }
+    </script>
+}
+
+
+

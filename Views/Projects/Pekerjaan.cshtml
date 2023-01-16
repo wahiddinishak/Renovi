@@ -1,0 +1,57 @@
+﻿@model renovi.Models.listAction
+
+<button class="btn btn-info btn-sm mb-3" onclick="exportData('@ViewData["idProyek"]')">
+    <i class="fas fa-file-upload mr-1"></i>Export
+</button>
+<button class="btn btn-info btn-sm mb-3" onclick="importData('@ViewData["idProyek"]')">
+    <i class="fas fa-file-download mr-1"></i>Import
+</button>
+
+
+<table class="table table-hover table-bordered table-sm w-100" style="border-collapse:collapse;">
+    <thead class="thead-dark">
+        <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 75%;">Uraian Pekerjaan</th>
+            <th style="width: 10%;">Satuan</th>
+            <th class="text-right" style="width: 10%;">Volume</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in Model.data)
+        {
+            <tr class="bg-info text-white">
+                <td class="text-center">
+                    <b>@data.Seq</b>
+                </td>
+                <td colspan="2">
+                    <b>@data.kegiatan</b>
+                </td>
+                <td style="text-align:right">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button class="btn btn-warning btn-sm" onclick="modalAct(@data.id)"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteAct(@data.id)"><i class="far fa-trash-alt"></i></button>
+                    </div>
+                </td>
+            </tr>
+
+            foreach (var detail in data.details)
+            {
+                <tr>
+                    <td class="text-right">
+                        @detail.Id
+                    </td>
+                    <td>
+                        @detail.kegiatan
+                    </td>
+                    <td>
+                        @detail.uom
+                    </td>
+                    <td class="text-right">
+                        @detail.volume.ToString("n2")
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

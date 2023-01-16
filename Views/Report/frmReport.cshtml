@@ -1,0 +1,131 @@
+﻿@model renovi.Models.LaporanView
+
+<div class="container-fluid mb-4">
+    
+    <form id="frmLaporan">
+
+        <input type="number" asp-for="id" id="idx" class="d-none">
+        <input type="number" asp-for="idActH" id="idActH" class="d-none">
+        <input type="number" asp-for="idActD" id="idActD" class="d-none">
+        <input type="date" asp-for="reportDate" id="rdate" class="d-none">
+        <input type="text" asp-for="idProyek" class="d-none">
+
+        <div class="row justify-content-md-center mb-4">
+            <div class="col-sm-10 mt-2">
+                <div class="card">
+                    <div class="card-header">
+                        Uraian Pekerjaan
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">Tanggal Laporan</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-sm" id="xdate">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">Pekerjaan</label>
+                            <div class="col-sm-10">
+                                <select class="form-control form-control-sm" id="sActH" style="width: 100%;">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">Detail Pekerjaan</label>
+                            <div class="col-sm-10">
+                                <select class="form-control form-control-sm" id="sActD" style="width: 100%;">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divUsage" class="row justify-content-md-center mb-4 d-none">
+            <div class="col-sm-10 mt-2">
+                <div class="card">
+                    <div class="card-header">
+                        Penggunaan Biaya
+                    </div>
+                    <div class="card-body">
+                        <div id="usage"></div>
+                        <div id="overhead"></div>
+                        <input type="text" asp-for="usage" id="usagex" class="d-none">
+                        <input type="text" asp-for="overhead" id="overheadx" class="d-none">
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        Progress Pekerjaan
+                    </div>
+                    <div class="card-body">
+                        <div id="wip"></div>
+                        <input type="text" asp-for="wip" id="wipx" class="d-none">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divAttchment" class="row justify-content-md-center mb-4 d-none">
+            <div class="col-sm-10 mt-2">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Nota Penggunaan Biaya
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">Multiple file</label>
+                            <div class="col-sm-4">
+                                <input multiple type="file" class="form-control form-control-sm" asp-for="fileNota" />
+                            </div>
+                        </div>
+
+                        <div id="nota"></div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Dokumentasi Progress Pekerjaan
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm">Multiple file</label>
+                            <div class="col-sm-4">
+                                <input multiple type="file" class="form-control form-control-sm" asp-for="fileProgress" />
+                            </div>
+                        </div>
+
+                        <div id="progress"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        Catatan
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <textarea class="form-control form-control-sm" rows="5" asp-for="note"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div id="divBtnRpt" class="row justify-content-md-center mt-4 d-none">
+        <div class="col-sm-10">
+            <button class="btn btn-info btn-sm" id="btnSaveReport">Simpan</button>
+        </div>
+    </div>
+
+</div>

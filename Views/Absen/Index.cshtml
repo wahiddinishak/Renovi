@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewData["Title"] = "Absensi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewData["Title"]</h5>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div id="proyek"></div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            getProyek();
+        });
+
+
+        function getProyek() {
+            $('#loadings').removeClass('d-none');
+            $.get('@Url.Action("getProyek", "Absen")', null, function (result) {
+                $('#proyek').html('');
+                $('#proyek').html(result);
+                $('#loadings').addClass('d-none');
+            })
+        }
+
+        function ViewData() {
+            var table = $('#tbl').DataTable({
+                processing: true,
+                serverSide: true,
+                ordering: false,
+                ajax: {
+                    url: '@Url.Action("getAbsens", "Absen")',
+                    type: "POST",
+                    datatype: "json"
+                },
+                columns: [
+                    { data: "id", title: "id", autoWidth: true, visible: false },
+                    { data: "idProyek", title: "ID Proyek", autoWidth: true },
+                    { data: "nama", title: "Nama Proyek", autoWidth: true },
+                    {
+                        data: "periode",
+                        title: "Periode Absensi",
+                        autoWidth: true,
+                        render: function (data) {
+                            return data === null ? '' : moment(data).format('DD-MM-YYYY');
+                        }
+                    },
+                    {
+                        data: null,
+                        autoWidth: true,
+                        render: function () {
+                            return '<div class="dropdown"><button type="button" class="btn btn-sm btn-info shadow-sm dropdown-toggle" data-toggle="dropdown">Action</button><div class="dropdown-menu"><a class="dropdown-item" id="edit">Edit</a><a class="dropdown-item" id="hapus">Hapus</a></div></div>';
+                        },
+                        targets: -1
+                    }
+                ]
+            });
+
+            $('#tbl tbody').on('click', '#edit', function () {
+                var data = table.row($(this).parents('tr')).data();
+                modal(data["id"]);
+            });
+
+            $('#tbl tbody').on('click', '#hapus', function () {
+                var data = table.row($(this).parents('tr')).data();
+                Swal.fire({
+                    title: 'Menghapus data ?',
+                    text: "Anda tidak akan dapat memulihkan data ini.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.value) {
+                        $.post('@Url.Action("hapusItem", "Master")', { id: data["id"] }, function (result) {
+                            if (result !== 'Ok') {
+                                Swal.fire(
+                                    'Error !',
+                                    '' + result + '',
+                                    'error'
+                                );
+                            }
+                            else {
+                                Swal.fire(
+                                    'Deleted !',
+                                    'Berhasil menghapus data.',
+                                    'success'
+                                );
+                                $('#tbl').DataTable().ajax.reload();
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+
+        function modal(id) {
+            $.get('@Url.Action("modalGenAbsen", "Absen")', null, function (result) {
+                $('#modalBody').html(result);
+
+                $('#periods').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: false,
+                    minYear: 2019,
+                    locale: {
+                        format: 'DD-MM-YYYY'
+                    }
+                });
+
+                $('#modalSubmit').click(function (e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    modalProses(id);
+                });
+            });
+            $('#myModal').modal('show');
+        }
+
+    </script>
+
+
+}
+
+

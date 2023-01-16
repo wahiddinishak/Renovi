@@ -1,0 +1,138 @@
+﻿@model renovi.Models.listAction
+
+<div class="text-right mb-4">
+    <button id="btnPrint" class="btn btn-info btn-sm" onclick="printDiv('PrintRAB')">
+        <i class="fas fa-print mr-1"></i>
+    </button>
+</div>
+
+
+<div id="PrintRAB">
+
+    <div class="col-sm-12 mb-4 bg-light">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <h4 class="h4">Rencana Anggaran Biaya (RAB)</h4>
+            </div>
+            <div class="col-sm-6 text-right">
+                <img class="img-fluid" src="~/img/logo.png" width="200" />
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light p-2 mb-4">
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Nama Proyek</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @ViewData["judul"]
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Lokasi</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @ViewData["Alamat"]
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Pemilik</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @ViewData["namaKlien"]
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Tanggal Mulai</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @ViewData["tglMulai"]
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Tanggal Selesai</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @ViewData["tglSelesai"]
+            </label>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-sm w-100" style="border-collapse:collapse;" id="atbl">
+        <thead class="thead-dark">
+            <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 45%;">Uraian Pekerjaan</th>
+                <th style="width: 10%;">Satuan</th>
+                <th class="text-right" style="width: 10%;">Volume</th>
+                <th class="text-right" style="width: 15%;">Harga Satuan</th>
+                <th class="text-right" style="width: 15%;">Jumlah</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in Model.data)
+            {
+                <tr class="bg-info text-white">
+                    <td class="text-center">
+                        <b>@data.Seq</b>
+                    </td>
+                    <td colspan="5">
+                        <b>@data.kegiatan</b>
+                    </td>
+                </tr>
+
+                foreach (var detail in data.details)
+                {
+                    <tr id="p-@detail.Id" onclick="$('#c-' +@detail.Id).slideToggle(function() {getAnalisaDetail(@detail.Id)})" class="bg-gray-200">
+                        <td class="text-center">
+                            <i class="fas fa-chevron-down" id="e-@detail.Id"></i>
+                        </td>
+                        <td>
+                            @detail.kegiatan
+                        </td>
+                        <td>
+                            @detail.uom
+                        </td>
+                        <td class="text-right">
+                            @detail.volume.ToString("n2")
+                        </td>
+                        <td class="text-right">
+                            @detail.harga.ToString("n2")
+                        </td>
+                        <td class="text-right">
+                            @{
+                                double calc = detail.harga * detail.volume;
+                            }
+
+                            @calc.ToString("n2")
+                        </td>
+                    </tr>
+
+                    <tr style="display:none;" id="c-@detail.Id">
+                        <td colspan="6">
+                            <div class="col-sm-12 pt-3 pb-3">
+                                <div id="analisa-@detail.Id"></div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+                <tr class="bg-gray-300">
+                    <td colspan="5" style="text-align:center;">
+                        <b>Total @data.kegiatan</b>
+                    </td>
+                    <td style="text-align:right;">
+                        <b>@data.total.ToString("n2")</b>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>

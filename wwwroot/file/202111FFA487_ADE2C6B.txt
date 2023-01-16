@@ -1,0 +1,16 @@
+-- Amount report stock
+
+-- Receive & Issue Remarka Mandatory
+
+-- Ledger tambah kolom sumber dan tujuan
+--- tambah field SuppCust di tbl_Ledgers
+
+--Buat enginee Closing (tutup buku)
+--- tambah table tbl_recaps & tbl_recap_ops
+--- tambah menu di tbl_menus "Closing"
+--- tambah akses di tbl_AccessRights untuk menu "Closing"
+
+-- Payment Voucher (gaji, transport, akomodasi)
+--- tambah field Category di tbl_PaymentVouchers
+
+-- Report Performance (Custumer terbanyak order)

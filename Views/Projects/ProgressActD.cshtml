@@ -1,0 +1,29 @@
+﻿<div class="form-group row">
+    <label class="col-sm-2 col-form-label col-form-label-sm"><b>Pekerjaan</b></label>
+    <label class="col-sm-10 col-form-label col-form-label-sm">@ViewData["pekerjaan"]</label>
+</div>
+<table class="table table-bordered table-sm w-100">
+    <thead class="thead-dark">
+    <tr>
+        <th></th>
+        <th class="text-right">RAB</th>
+        <th class="text-right">Progress</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th class="bg-dark text-white">
+                <b>Nilai</b>
+            </th>
+            <td class="text-right">@ViewData["NilaiRAB"]</td>
+            <td class="text-right">@ViewData["NilaiProgress"]</td>
+        </tr>
+        <tr>
+            <th class="bg-dark text-white">
+                <b>Bobot</b>
+            </th>
+            <td class="text-right">@ViewData["BobotRAB"]</td>
+            <td class="text-right">@ViewData["BobotProgress"]</td>
+        </tr>
+    </tbody>
+</table>

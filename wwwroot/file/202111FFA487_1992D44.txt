@@ -1,0 +1,2 @@
+2021-06-02 17:07:17,430 [1] INFO  ReglaWinServiceAntasena.Program [(null)] - Agent Starting
+2021-06-02 17:07:17,525 [1] INFO  ReglaWinServiceAntasena.Program [(null)] - Version : 1.0.0.0

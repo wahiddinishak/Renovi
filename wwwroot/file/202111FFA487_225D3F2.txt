@@ -1,0 +1,6 @@
+-- ironport
+-- Info Kolektibilitas Bank Danamon Indonesia,info@kolektabilitasdanamon.co.id,10.192.70.140,25
+-- exchange baru
+-- Info Kolektibilitas Bank Danamon Indonesia,info@kolektabilitasdanamon.co.id,10.197.26.166,25
+-- exchange lama
+-- Info Kolektibilitas Bank Danamon Indonesia,info@kolektabilitasdanamon.co.id,10.197.16.112,25

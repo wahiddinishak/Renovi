@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewData["Title"]</h5>
+</div>
+
+<div class="row">
+
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2 text-center">
+                        <h2 class="h2 mb-4 font-weight-bold text-gray-800">@ViewData["total"]</h2>
+                        <h1 class="h1 text-xs font-weight-bold text-info text-uppercase mt-2">
+                            Projects Total
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2 text-center">
+                        <h2 class="h2 mb-4 font-weight-bold text-gray-800">@ViewData["active"]</h2>
+                        <h1 class="h1 text-xs font-weight-bold text-info text-uppercase mt-2">
+                            Projects Active
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2 text-center">
+                        <h2 class="h2 mb-4 font-weight-bold text-gray-800">@ViewData["nonActive"]</h2>
+                        <h1 class="h1 text-xs font-weight-bold text-info text-uppercase mt-2">
+                            Projects Non Active
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-info">Projects Active : Progress to Date (%)</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-area" id="grap">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var bKep = {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Progress Biaya(%)',
+                        data: [],
+                        fill: false,
+                        backgroundColor: '#0b6623',
+                        tension: 0.1
+                    }, {
+                        label: 'Progress Pekerjaan(%)',
+                        data: [],
+                        fill: false,
+                        backgroundColor: '#f6c23e',
+                        tension: 0.1
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                            gridLines: {
+                                display: false
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                display: true
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 0.1
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: { position: 'top' },
+                }
+            };
+
+            var btx = $('#myChart');
+            var barKep = new Chart(btx, bKep);
+
+            $('#loadings').removeClass('d-none');
+            $.get('@Url.Action("getProgress", "Home")', null, function (result) {
+
+                barKep.data.labels = [];
+                barKep.data.datasets[0].data = [];
+                barKep.data.datasets[1].data = [];
+                barKep.update();
+
+                $.each(result.data, function (i, obj) {
+                    barKep.data.labels.push(obj.judul);
+                    barKep.data.datasets[0].data.push(obj.progressBiaya);
+                    barKep.data.datasets[1].data.push(obj.progressPekerjaan);
+                });
+                barKep.update();
+                $('#loadings').addClass('d-none');
+            });
+        });
+    </script>
+}

@@ -1,0 +1,73 @@
+﻿@model renovi.Models.listAction
+
+
+<label id="idActH" class="d-none">@Model.data.Select(a => a.id).FirstOrDefault()</label>
+
+<div class="form-group row">
+    <div class="col-sm-2">
+        <div class="form-group">
+            <small>Urutan</small>
+            <input type="number" class="form-control form-control-sm text-right" min="1" value="@Model.data.Select(a => a.Seq).FirstOrDefault()" placeholder="Nomor" id="seq">
+        </div>
+    </div>
+    <div class="col-sm-10">
+        <div class="form-group">
+            <small>Klasifikasi Pekerajaan</small>
+            <input type="text" class="form-control form-control-sm" value="@Model.data.Select(a => a.kegiatan).FirstOrDefault()" id="keg">
+        </div>
+    </div>
+</div>
+
+<div class="mt-2 p-2" style="height: 300px; overflow-y:scroll;">
+    <table class="table table-hover table-bordered table-sm" style="border-collapse:collapse;" id="actTbl_@Model.data.Select(a => a.id).FirstOrDefault()">
+        <thead class="thead-dark">
+            <tr>
+                <th style="width: 5%;">
+                    <div class="btn-group btn-group-sm d-flex justify-content-center">
+                        <button type="button" class="btn btn-sm btn-info" onclick="newRowAct(@Model.data.Select(a => a.id).FirstOrDefault())">
+                            <i class="fas fa-plus-circle"></i>
+                        </button>
+                    </div>
+                </th>
+                <th class="d-none" style="width: 5%;">Id</th>
+                <th style="width: 65%;">Kegiatan</th>
+                <th style="width: 10%;">Satuan</th>
+                <th class="text-right" style="width: 15%;">Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in Model.data)
+            {
+                @foreach (var x in data.details)
+                {
+                    string idD = "btnDel" + x.Id;
+
+                    <tr>
+                        <td>
+                            <div class="btn-group btn-group-sm d-flex justify-content-center">
+                                <button type="button" class="btn btn-sm btn-danger" id="@idD" onclick="delAct(@x.Id)">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="d-none">
+                            <input class="d-none" value="@x.Id" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm" value="@x.kegiatan" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm" value="@x.uom" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm text-right" value="@x.volume" min="0" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

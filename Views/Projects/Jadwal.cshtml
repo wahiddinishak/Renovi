@@ -1,0 +1,114 @@
+﻿@model renovi.Models.listActionForJadwal
+
+@{
+    // lebar = bulan * 20 + 60
+    int bulan = (int)Convert.ToInt64(ViewData["bulan"]);
+    int lebar = bulan * 20 + 60;
+    int collspans = 4 * bulan;
+}
+
+<label class="d-none">@ViewData["idProyek"]</label>
+
+<div class="row mb-sm-2">
+    <label class="col-sm-12 col-form-label col-form-label-sm">
+        <b>Periode Pekerjaan:</b> @ViewData["target"] (@bulan Bulan)
+    </label>
+</div>
+
+<div class="jadwalView">
+    <div class="jadwalWrapper">
+        <table id="jadTbl" width="@lebar%">
+            <thead>
+                <tr>
+                    <th class="d-none">Id</th>
+                    <th class="d-none">Header</th>
+                    <th class="d-none">Blocked</th>
+                    <th rowspan="2" style="vertical-align: middle; text-align: center;" class="kolomNomor" width="10">No</th>
+                    <th rowspan="2" style="vertical-align: middle;" class="kolomPekerjaan" width="20">Uraian Pekerjaan</th>
+                    @for (int i = 1; i <= bulan; i++)
+                    {
+                        <th colspan="4" class="text-center kolomBulan">Bulan ke @i</th>
+                    }
+                </tr>
+                <tr>
+                    <th class="d-none"></th>
+                    <th class="d-none"></th>
+                    <th class="d-none"></th>
+                    @for (int i = 1; i <= bulan; i++)
+                    {
+                        <th class="text-center kolomPekan">I</th>
+                        <th class="text-center kolomPekan">II</th>
+                        <th class="text-center kolomPekan">II</th>
+                        <th class="text-center kolomPekan">IV</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var data in Model.data)
+                {
+                    <tr>
+                        <td class="d-none">
+                            @data.id
+                        </td>
+                        <td class="d-none">
+                            0
+                        </td>
+                        <td class="d-none"></td>
+                        <td class="text-center bg-info text-white kolomNomorBody" width="10">
+                            <b>@data.Seq</b>
+                        </td>
+                        <td class="bg-info text-white kolomPekerjaanBody" width="20">
+                            <b>@data.kegiatan</b>
+                        </td>
+                        <td id="parent" colspan="@collspans" class="bg-info"></td>
+                    </tr>
+
+                    foreach (var detail in data.details)
+                    {
+                        <tr>
+                            <td class="d-none">
+                                @detail.originalId
+                            </td>
+                            <td class="d-none">
+                                @detail.header
+                            </td>
+                            <td class="d-none">@detail.blocked</td>
+                            <td class="text-right bg-gray-200 text-dark kolomNomorBody" width="10">
+                                @detail.Id
+                            </td>
+                            <td class="bg-gray-200 text-dark kolomPekerjaanBody" width="20">
+                                @detail.kegiatan
+                            </td>
+
+                            @for (int i = 1; i <= collspans; i++)
+                            {
+                                if (!string.IsNullOrEmpty(detail.blocked))
+                                {
+                                    string[] arr = detail.blocked.Split(',');
+
+                                    if (arr.Contains((i+4).ToString()))
+                                    {
+                                        <td id="child" class="bg-warning"></td>
+                                    }
+                                    else
+                                    {
+                                        <td id="child"></td>
+                                    }
+                                }
+                                else
+                                {
+                                    <td id="child"></td>
+                                }
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<button class="btn btn-info btn-sm mt-4 nb-4" onclick="submitJadwal('@ViewData["idProyek"]')">Simpan</button>
+
+
+

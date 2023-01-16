@@ -1,0 +1,47 @@
+﻿@model renovi.Models.listLaporanUsage
+
+<h6 class="h6 text-muted">Material dan Jasa</h6>
+<table class="table table-bordered table-sm w-100 mt-2" id="tblUsage">
+    <thead class="thead-dark">
+        <tr>
+            <th class="d-none">idMaterial</th>
+            <th style="width: 30%;">Berdasarkan Anggaran</th>
+            <th style="width: 25%;">Telah Terpakai</th>
+            <th class="text-right" style="width: 15%;">Kuantitas</th>
+            <th class="text-right" style="width: 15%;">Biaya</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model.data)
+        {
+        <tr class="bg-info text-white">
+            <td class="d-none">
+                <input type="text" class="form-control form-control-sm" value="@m.idMaterial" />
+            </td>
+            <td>
+                <b>@m.materialInfo</b>
+            </td>
+            <td></td>
+            <td style="vertical-align: middle;">
+                <input type="number" class="form-control form-control-sm text-right" min="0" value="@m.qty" />
+            </td>
+            <td style="vertical-align: middle;">
+                <input type="number" class="form-control form-control-sm text-right" min="0" value="@m.amount" />
+            </td>
+        </tr>
+            <tr>
+                <td class="d-none">
+                    <input type="text" class="form-control form-control-sm" value="x" />
+                </td>
+                <td class="bg-light">@Html.Raw(m.materialBudget)</td>
+                <td class="bg-light">@Html.Raw(m.materialUsage)</td>
+                <td class="bg-light">
+                    <input type="text" class="form-control form-control-sm d-none" value="x" />
+                </td>
+                <td class="bg-light">
+                    <input type="text" class="form-control form-control-sm d-none" value="x" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

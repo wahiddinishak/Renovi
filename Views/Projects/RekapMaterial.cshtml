@@ -1,0 +1,135 @@
+﻿@model renovi.Models.listRekapMaterial
+
+<div id="material">
+
+    <div class="col-sm-12 mb-4 bg-light">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <h4 class="h4">Rekapitulasi Material dan Jasa</h4>
+            </div>
+            <div class="col-sm-6 text-right">
+                <img class="img-fluid" src="~/img/logo.png" width="200" />
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light p-2">
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Nama Proyek</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @Model.data.Select(a => a.judul).FirstOrDefault()
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Lokasi</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @Model.data.Select(a => a.alamat).FirstOrDefault()
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Pemilik</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @Model.data.Select(a => a.pemilik).FirstOrDefault()
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">
+                <b>Periode</b>
+            </label>
+            <label class="col-sm-10 col-form-label col-form-label-sm">
+                @Model.data.Select(a => a.period).FirstOrDefault()
+            </label>
+        </div>
+    </div>
+
+
+    <table class="table table-hover table-bordered table-sm w-100 mt-4 mb-4" style="border-collapse:collapse;" id="rtbl">
+        <thead class="thead-dark">
+            <tr>
+                <th style="width: 5%; vertical-align: middle;" rowspan="2">No</th>
+                <th style="width: 30%; vertical-align: middle;" rowspan="2">Uraian Pekerjaan</th>
+                <th style="width: 5%; vertical-align: middle;" rowspan="2">Satuan</th>
+                <th class="text-center" style="width: 20%; vertical-align: middle;" colspan="2">Anggaran</th>
+                <th class="text-center" style="width: 20%; vertical-align: middle;" colspan="2">Terpakai</th>
+                <th class="text-center" style="width: 20%; vertical-align: middle;" colspan="2">Selisih</th>
+            </tr>
+            <tr>
+                <th class="text-right" style="width: 10%; vertical-align: middle;">Kuantitas</th>
+                <th class="text-right" style="width: 10%; vertical-align: middle;">Nilai</th>
+                <th class="text-right" style="width: 10%; vertical-align: middle;">Kuantitas</th>
+                <th class="text-right" style="width: 10%; vertical-align: middle;">Nilai</th>
+                <th class="text-right" style="width: 10%; vertical-align: middle;">Kuantitas</th>
+                <th class="text-right" style="width: 10%; vertical-align: middle;">Nilai</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in Model.data)
+            {
+                foreach (var actMat in data.ActMat)
+                {
+                    <tr class="bg-info text-white">
+                        <td class="text-center">
+                            <b>@actMat.nomor</b>
+                        </td>
+                        <td>
+                            <b>@actMat.kegiatan</b>
+                        </td>
+                        <td colspan="7"></td>
+                    </tr>
+
+                    foreach (var detail in actMat.details)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                <b>@detail.nomor</b>
+                            </td>
+                            <td>
+                                <b>@detail.kegiatan</b>
+                            </td>
+                            <td colspan="7"></td>
+                        </tr>
+
+                        foreach (var item in detail.items)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@item.item</td>
+                                <td class="text-center">@item.uom</td>
+                                <td class="text-right">@item.qtyBudget.ToString("n2")</td>
+                                <td class="text-right">@item.amountBudget.ToString("n2")</td>
+                                <td class="text-right">@item.qtyUsage.ToString("n2")</td>
+                                <td class="text-right">@item.amountUsage.ToString("n2")</td>
+                                <td class="text-right">
+                                    @if ((item.qtyBudget - item.qtyUsage) < 0)
+                                    {
+                                        <b class="text-danger">@string.Format("{0:N2}", item.qtyBudget - item.qtyUsage)</b>
+                                    }
+                                    else
+                                    {
+                                        <b class="text-info">@string.Format("{0:N2}", item.qtyBudget - item.qtyUsage)</b>
+                                    }
+                                </td>
+                                <td class="text-right">
+                                    @if ((item.amountBudget - item.amountUsage) < 0)
+                                    {
+                                        <b class="text-danger">@string.Format("{0:N2}", item.amountBudget - item.amountUsage)</b>
+                                    }
+                                    else
+                                    {
+                                        <b class="text-info">@string.Format("{0:N2}", item.amountBudget - item.amountUsage)</b>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

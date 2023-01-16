@@ -1,0 +1,270 @@
+﻿
+@{
+    ViewData["Title"] = "Proyek";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewData["Title"]</h5>
+</div>
+
+<div class="card shadow mb-4">
+    @if (ViewData["RoleId"].ToString() == "1" || ViewData["RoleId"].ToString() == "3")
+    {
+        if (Convert.ToBoolean(ViewData["showAddButton"]) == true)
+        {
+            <div class="card-header py-3">
+                <a class="d-sm-inline-block btn btn-sm btn-info shadow" onclick="modal()">
+                    <i class="fas fa-file fa-sm text-white mr-1"></i> Tambah
+                </a>
+            </div>
+        }
+    }
+<div class="card-body">
+    
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Untuk Proyek Baru</strong> Pilih salah satu proyek dibawah kemudian <b>Duplikasi.</b>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div id="accordion">
+        <div id="proyek"></div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Informasi Proyek</h6>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modalBody"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-info btn-sm" type="button" id="modalSubmit">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            getProyek();
+        });
+
+        function getProyek() {
+            $('#loadings').removeClass('d-none');
+            $.get('@Url.Action("getProyek", "Projects")', null, function (result) {
+                $('#proyek').html('');
+                $('#proyek').html(result);
+
+                $('#loadings').addClass('d-none');
+            })
+        }
+
+        function modal() {
+            $.get('@Url.Action("modalProyek", "Projects")', null, function (result) {
+                $('#modalBody').html(result);
+                $.validator.unobtrusive.parse('#frm');
+
+                $('#dates').daterangepicker({
+                    singleDatePiUrlker: false,
+                    showDropdowns: false,
+                    minYear: 2020,
+                    maxYear: parseInt(moment().format('YYYY'), 10),
+                    locale: {
+                        format: 'DD-MM-YYYY'
+                    }
+                },
+                    function (start, end) {
+                        $('#start').val(start.format('YYYY-MM-DD'));
+                        $('#end').val(end.format('YYYY-MM-DD'));
+                    }
+                );
+
+                $.get('@Url.Action("getMandor", "Projects")', {index: ""}, function (data) {
+                    $('#smandor').select2({
+                        placeholder: '- Pilih Mandor -',
+                        data: data,
+                        tags: true,
+                        casesensitive: false
+                    });
+                });
+
+                $('#modalSubmit').click(function (e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    submitProyekInfo();
+                });
+            });
+            $('#myModal').modal('show');
+        }
+
+        function submitProyekInfo() {
+            if ($('#frm').valid()) {
+                $('#loadings').removeClass('d-none');
+
+                var form = $('#frm')[0];
+
+                var data = new FormData(form);
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: '@Url.Action("submitProyekInfo", "Projects")',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    timeout: 600000,
+                    success: function (result) {
+                        // Ok
+                        getProyek();
+                        $('#myModal').modal('hide');
+                    },
+                    error: function (e) {
+                        Swal.fire(
+                            'Error !',
+                            '' + e + '',
+                            'error'
+                        );
+                        $('#loadings').addClass('d-none');
+                    }
+                });
+            }
+            else {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        }
+
+        function duplicateProject(id) {
+            Swal.fire({
+                    title: 'Buat proyek dari template ini ?',
+                    text: "Anda akan menyalin data proyek ini.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.value) {
+                    $('#loadings').removeClass('d-none');
+                    $.get('@Url.Action("Duplicate", "Projects")', { id: id }, function (result) {
+                        if (result == "Ok") {
+                            $('#loadings').addClass('d-none');
+                            Swal.fire({
+                                title: 'Berhasil !',
+                                text: 'Proyek berhasil digandakan.',
+                                type: 'success',
+                            }).then((result) => {
+                                if (result.value) {
+                                    getProyek();
+                                }
+                            });
+                        }
+                        else {
+                            $('#loadings').addClass('d-none');
+                            Swal.fire(
+                                'Error !',
+                                '' + result + '',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+
+
+        function setActive(id, val) {
+            Swal.fire({
+                    title: 'Mengubah status proyek ?',
+                    text: "Anda akan mengubah status proyek ini.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.value) {
+                    $('#loadings').removeClass('d-none');
+                    $.get('@Url.Action("setActive", "Projects")', { id: id, val: val }, function (result) {
+                        if (result == "Ok") {
+                            $('#loadings').addClass('d-none');
+                            Swal.fire({
+                                title: 'Berhasil !',
+                                text: 'Berhasil mengubah status.',
+                                type: 'success',
+                            }).then((result) => {
+                                if (result.value) {
+                                    getProyek();
+                                }
+                            });
+                        }
+                        else {
+                            $('#loadings').addClass('d-none');
+                            Swal.fire(
+                                'Error !',
+                                '' + result + '',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+
+
+        function deleteProject(id) {
+            Swal.fire({
+                    title: 'Menghapus data ?',
+                    text: "Anda tidak akan dapat memulihkan data ini.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.value) {
+                    $('#loadings').removeClass('d-none');
+                    $.get('@Url.Action("deleteProject", "Projects")', { id: id }, function (result) {
+                        if (result == "Ok") {
+                            $('#loadings').addClass('d-none');
+                            Swal.fire({
+                                title: 'Berhasil !',
+                                text: 'Berhasil menghapus data.',
+                                type: 'success',
+                            }).then((result) => {
+                                if (result.value) {
+                                    getProyek();
+                                }
+                            });
+                        }
+                        else {
+                            $('#loadings').addClass('d-none');
+                            Swal.fire(
+                                'Error !',
+                                '' + result + '',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

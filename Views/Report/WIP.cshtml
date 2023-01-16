@@ -1,0 +1,23 @@
+﻿<div class="form-group row">
+    <label class="col-sm-2 col-form-label col-form-label-sm">Progress Terakhir</label>
+    <div class="col-sm-4">
+        <div class="input-group input-group-sm">
+            <input type="number" class="form-control form-control-sm text-right" min="0" step="0.1" value="@ViewData["LastWip"]" disabled>
+            <div class="input-group-append">
+                <span class="input-group-text">%</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label col-form-label-sm">Progress Saat Ini</label>
+    <div class="col-sm-4">
+        <div class="input-group input-group-sm">
+            <input type="number" class="form-control form-control-sm text-right" min="0" step="0.1" value="@ViewData["Wip"]" id="xwip">
+            <div class="input-group-append">
+                <span class="input-group-text">%</span>
+            </div>
+        </div>
+    </div>
+</div>

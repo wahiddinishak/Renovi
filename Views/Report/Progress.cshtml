@@ -1,0 +1,12 @@
+﻿@model renovi.Models.listLaporanAttachment
+
+
+<ul class="list-group mt-2 mb-4">
+    @foreach (var data in Model.data)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="~/file/@data.filename" target="_blank">@data.filename</a>
+            <a class="btn btn-danger btn-sm" onclick="deleteAttach(@data.id,@data.header, 'P');"><i class="far fa-trash-alt"></i></a>
+        </li>
+    }
+</ul>
